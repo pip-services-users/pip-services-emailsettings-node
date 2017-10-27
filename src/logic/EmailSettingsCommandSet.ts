@@ -36,7 +36,7 @@ export class EmailSettingsCommandSet extends CommandSet {
 		return new Command(
 			"get_settings_by_ids",
 			new ObjectSchema(true)
-				.withRequiredProperty('recipient_id', new ArraySchema(TypeCode.String)),
+				.withRequiredProperty('recipient_ids', new ArraySchema(TypeCode.String)),
             (correlationId: string, args: Parameters, callback: (err: any, result: any) => void) => {
                 let recipientIds = args.get("recipient_ids");
                 this._logic.getSettingsByIds(correlationId, recipientIds, callback);

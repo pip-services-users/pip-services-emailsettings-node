@@ -373,7 +373,7 @@ class EmailSettingsController {
             },
             // Asynchronous post-processing
             (callback) => {
-                this.logActivity(correlationId, settings, EmailSettingsActivityTypeV1_1.EmailSettingsActivityTypeV1.EmailSettingsVerified);
+                this.logActivity(correlationId, settings, EmailSettingsActivityTypeV1_1.EmailSettingsActivityTypeV1.EmailVerified);
                 callback();
             }
         ], (err) => {

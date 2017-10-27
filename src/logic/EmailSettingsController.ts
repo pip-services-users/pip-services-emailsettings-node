@@ -534,7 +534,7 @@ export class EmailSettingsController implements IConfigurable, IReferenceable, I
                 this.logActivity(
                     correlationId,
                     settings,
-                    EmailSettingsActivityTypeV1.EmailSettingsVerified
+                    EmailSettingsActivityTypeV1.EmailVerified
                 );
 
                 callback();

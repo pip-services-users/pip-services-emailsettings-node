@@ -22,7 +22,7 @@ class EmailSettingsCommandSet extends pip_services_commons_node_1.CommandSet {
     }
     makeGetSettingsByIdsCommand() {
         return new pip_services_commons_node_2.Command("get_settings_by_ids", new pip_services_commons_node_3.ObjectSchema(true)
-            .withRequiredProperty('recipient_id', new pip_services_commons_node_4.ArraySchema(pip_services_commons_node_5.TypeCode.String)), (correlationId, args, callback) => {
+            .withRequiredProperty('recipient_ids', new pip_services_commons_node_4.ArraySchema(pip_services_commons_node_5.TypeCode.String)), (correlationId, args, callback) => {
             let recipientIds = args.get("recipient_ids");
             this._logic.getSettingsByIds(correlationId, recipientIds, callback);
         });
