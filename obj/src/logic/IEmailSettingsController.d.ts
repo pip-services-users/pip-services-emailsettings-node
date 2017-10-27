@@ -8,5 +8,5 @@ export interface IEmailSettingsController {
     setSubscriptions(correlationId: string, recipientId: string, subscriptions: any, callback?: (err: any, settings: EmailSettingsV1) => void): void;
     deleteSettingsById(correlationId: string, recipientId: string, callback?: (err: any) => void): void;
     resendVerification(correlationId: string, recipientId: string, callback?: (err: any) => void): void;
-    verifyEmailSettings(correlationId: string, recipientId: string, code: string, callback?: (err: any) => void): void;
+    verifyEmail(correlationId: string, recipientId: string, code: string, callback?: (err: any) => void): void;
 }

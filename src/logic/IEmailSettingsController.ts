@@ -31,6 +31,6 @@ export interface IEmailSettingsController {
     resendVerification(correlationId: string, recipientId: string,
         callback?: (err: any) => void): void;
     
-    verifyEmailSettings(correlationId: string, recipientId: string, code: string,
+    verifyEmail(correlationId: string, recipientId: string, code: string,
         callback?: (err: any) => void): void;
 }

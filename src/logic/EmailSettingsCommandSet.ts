@@ -29,7 +29,7 @@ export class EmailSettingsCommandSet extends CommandSet {
 		this.addCommand(this.makeSetSubscriptionsCommand());
 		this.addCommand(this.makeDeleteSettingsByIdCommand());
 		this.addCommand(this.makeResendVerificationCommand());
-		this.addCommand(this.makeVerifyEmailSettingsCommand());
+		this.addCommand(this.makeVerifyEmailCommand());
     }
 
 	private makeGetSettingsByIdsCommand(): ICommand {
@@ -139,7 +139,7 @@ export class EmailSettingsCommandSet extends CommandSet {
 		);
 	}
 
-	private makeVerifyEmailSettingsCommand(): ICommand {
+	private makeVerifyEmailCommand(): ICommand {
 		return new Command(
 			"verify_email",
 			new ObjectSchema(true)
@@ -147,7 +147,7 @@ export class EmailSettingsCommandSet extends CommandSet {
             (correlationId: string, args: Parameters, callback: (err: any, result: any) => void) => {
                 let recipientId = args.getAsString("recipient_id");
                 let code = args.getAsString("code");
-                this._logic.verifyEmailSettings(correlationId, recipientId, code, (err) => {
+                this._logic.verifyEmail(correlationId, recipientId, code, (err) => {
 					callback(err, null);
 				});
             }

@@ -470,7 +470,7 @@ export class EmailSettingsController implements IConfigurable, IReferenceable, I
         }
     }
     
-    public verifyEmailSettings(correlationId: string, recipientId: string, code: string,
+    public verifyEmail(correlationId: string, recipientId: string, code: string,
         callback?: (err: any) => void): void {
         let settings: EmailSettingsV1;
 

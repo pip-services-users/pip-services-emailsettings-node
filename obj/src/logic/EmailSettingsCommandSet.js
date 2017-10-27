@@ -18,7 +18,7 @@ class EmailSettingsCommandSet extends pip_services_commons_node_1.CommandSet {
         this.addCommand(this.makeSetSubscriptionsCommand());
         this.addCommand(this.makeDeleteSettingsByIdCommand());
         this.addCommand(this.makeResendVerificationCommand());
-        this.addCommand(this.makeVerifyEmailSettingsCommand());
+        this.addCommand(this.makeVerifyEmailCommand());
     }
     makeGetSettingsByIdsCommand() {
         return new pip_services_commons_node_2.Command("get_settings_by_ids", new pip_services_commons_node_3.ObjectSchema(true)
@@ -87,12 +87,12 @@ class EmailSettingsCommandSet extends pip_services_commons_node_1.CommandSet {
             });
         });
     }
-    makeVerifyEmailSettingsCommand() {
+    makeVerifyEmailCommand() {
         return new pip_services_commons_node_2.Command("verify_email", new pip_services_commons_node_3.ObjectSchema(true)
             .withRequiredProperty('recipient_id', pip_services_commons_node_5.TypeCode.String), (correlationId, args, callback) => {
             let recipientId = args.getAsString("recipient_id");
             let code = args.getAsString("code");
-            this._logic.verifyEmailSettings(correlationId, recipientId, code, (err) => {
+            this._logic.verifyEmail(correlationId, recipientId, code, (err) => {
                 callback(err, null);
             });
         });

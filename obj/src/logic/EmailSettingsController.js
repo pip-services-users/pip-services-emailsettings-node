@@ -337,7 +337,7 @@ class EmailSettingsController {
             });
         }
     }
-    verifyEmailSettings(correlationId, recipientId, code, callback) {
+    verifyEmail(correlationId, recipientId, code, callback) {
         let settings;
         async.series([
             // Read settings

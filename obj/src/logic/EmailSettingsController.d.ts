@@ -36,5 +36,5 @@ export declare class EmailSettingsController implements IConfigurable, IReferenc
     deleteSettingsById(correlationId: string, recipientId: string, callback?: (err: any) => void): void;
     resendVerification(correlationId: string, recipientId: string, callback?: (err: any) => void): void;
     private logActivity(correlationId, settings, activityType);
-    verifyEmailSettings(correlationId: string, recipientId: string, code: string, callback?: (err: any) => void): void;
+    verifyEmail(correlationId: string, recipientId: string, code: string, callback?: (err: any) => void): void;
 }

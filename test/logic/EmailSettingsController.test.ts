@@ -152,7 +152,7 @@ suite('EmailSettingsController', ()=> {
             },
         // Verify email
             (callback) => {
-                controller.verifyEmailSettings(
+                controller.verifyEmail(
                     null,
                     settings1.id,
                     settings1.ver_code,
