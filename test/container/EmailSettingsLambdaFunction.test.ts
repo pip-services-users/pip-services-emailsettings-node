@@ -51,7 +51,7 @@ suite('EmailSettingsLambdaFunction', ()=> {
             (callback) => {
                 lambda.act(
                     {
-                        role: 'email',
+                        role: 'email_settings',
                         cmd: 'set_settings',
                         settings: SETTINGS
                     },
@@ -75,7 +75,7 @@ suite('EmailSettingsLambdaFunction', ()=> {
 
                 lambda.act(
                     {
-                        role: 'email',
+                        role: 'email_settings',
                         cmd: 'set_settings',
                         settings: settings1
                     },
@@ -94,7 +94,7 @@ suite('EmailSettingsLambdaFunction', ()=> {
             (callback) => {
                 lambda.act(
                     {
-                        role: 'email',
+                        role: 'email_settings',
                         cmd: 'delete_settings_by_id',
                         recipient_id: SETTINGS.id
                     },
@@ -109,7 +109,7 @@ suite('EmailSettingsLambdaFunction', ()=> {
             (callback) => {
                 lambda.act(
                     {
-                        role: 'email',
+                        role: 'email_settings',
                         cmd: 'get_settings_by_id',
                         recipient_id: SETTINGS.id
                     },
