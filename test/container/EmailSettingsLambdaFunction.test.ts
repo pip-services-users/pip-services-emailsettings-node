@@ -7,7 +7,7 @@ import { ConfigParams } from 'pip-services-commons-node';
 import { References } from 'pip-services-commons-node';
 import { ConsoleLogger } from 'pip-services-commons-node';
 
-import { EmailDeliveryNullClientV1 } from 'pip-clients-emaildelivery-node';
+import { EmailNullClientV1 } from 'pip-clients-email-node';
 
 import { EmailSettingsV1 } from '../../src/data/version1/EmailSettingsV1';
 import { EmailSettingsMemoryPersistence } from '../../src/persistence/EmailSettingsMemoryPersistence';
@@ -30,7 +30,7 @@ suite('EmailSettingsLambdaFunction', ()=> {
             'logger.descriptor', 'pip-services-commons:logger:console:default:1.0',
             'persistence.descriptor', 'pip-services-emailsettings:persistence:memory:default:1.0',
             'controller.descriptor', 'pip-services-emailsettings:controller:default:default:1.0',
-            'emaildelivery.descriptor', 'pip-services-emaildelivery:client:null:default:1.0'
+            'emaildelivery.descriptor', 'pip-services-email:client:null:default:1.0'
         );
 
         lambda = new EmailSettingsLambdaFunction();

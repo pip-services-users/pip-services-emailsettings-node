@@ -12,7 +12,7 @@ import { EmailSettingsMongoDbPersistence } from '../persistence/EmailSettingsMon
 import { EmailSettingsController } from '../logic/EmailSettingsController';
 import { EmailSettingsSenecaServiceV1 } from '../services/version1/EmailSettingsSenecaServiceV1';
 import { ActivitiesSenecaClientV1 } from 'pip-clients-activities-node';
-import { EmailDeliverySenecaClientV1 } from 'pip-clients-emaildelivery-node';
+import { EmailSenecaClientV1 } from 'pip-clients-email-node';
 
 export class EmailSettingsSenecaPlugin extends SenecaPlugin {
     public constructor(seneca: any, options: any) {
@@ -30,7 +30,7 @@ export class EmailSettingsSenecaPlugin extends SenecaPlugin {
         let activitiesOptions = options.activities || {};
         activitiesClient.configure(ConfigParams.fromValue(activitiesOptions));
 
-        let emailClient = new EmailDeliverySenecaClientV1();
+        let emailClient = new EmailSenecaClientV1();
         let emailOptions = options.email || {};
         emailClient.configure(ConfigParams.fromValue(emailOptions));
 
@@ -60,7 +60,7 @@ export class EmailSettingsSenecaPlugin extends SenecaPlugin {
             new Descriptor('pip-services-commons', 'logger', 'console', 'default', '1.0'), logger,
             new Descriptor('pip-services-net', 'seneca', 'instance', 'default', '1.0'), senecaInstance,
             new Descriptor('pip-services-activities', 'client', 'seneca', 'default', '1.0'), activitiesClient,
-            new Descriptor('pip-services-emaildelivery', 'client', 'seneca', 'default', '1.0'), emailClient,
+            new Descriptor('pip-services-email', 'client', 'seneca', 'default', '1.0'), emailClient,
             new Descriptor('pip-services-emailsettings', 'persistence', persistenceType, 'default', '1.0'), persistence,
             new Descriptor('pip-services-emailsettings', 'controller', 'default', 'default', '1.0'), controller,
             new Descriptor('pip-services-emailsettings', 'service', 'seneca', 'default', '1.0'), service

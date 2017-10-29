@@ -10,7 +10,7 @@ The microservice currently supports the following deployment options:
 This microservice has optional dependencies on the following microservices:
 - [pip-services-activities-node](https://github.com/pip-services-users/pip-services-activities-node) - to log user activities
 - [pip-services-msgtemplates-node](https://github.com/pip-services-content/pip-services-msgtemplates-node) - to get message templates
-- [pip-services-emaildelivery-node](https://github.com/pip-services-infrastructure/pip-services-emaildelivery-node) - to send email messages
+- [pip-services-email-node](https://github.com/pip-services-infrastructure/pip-services-email-node) - to send email messages
 
 <a name="links"></a> Quick Links:
 

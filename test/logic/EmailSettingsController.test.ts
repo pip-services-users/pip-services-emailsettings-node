@@ -7,7 +7,7 @@ import { ConfigParams } from 'pip-services-commons-node';
 import { Descriptor } from 'pip-services-commons-node';
 import { References } from 'pip-services-commons-node';
 
-import { EmailDeliveryNullClientV1 } from 'pip-clients-emaildelivery-node';
+import { EmailNullClientV1 } from 'pip-clients-email-node';
 
 import { EmailSettingsV1 } from '../../src/data/version1/EmailSettingsV1';
 import { EmailSettingsMemoryPersistence } from '../../src/persistence/EmailSettingsMemoryPersistence';
@@ -34,7 +34,7 @@ suite('EmailSettingsController', ()=> {
         let references: References = References.fromTuples(
             new Descriptor('pip-services-emailsettings', 'persistence', 'memory', 'default', '1.0'), persistence,
             new Descriptor('pip-services-emailsettings', 'controller', 'default', 'default', '1.0'), controller,
-            new Descriptor('pip-services-emaildelivery', 'client', 'null', 'default', '1.0'), new EmailDeliveryNullClientV1()
+            new Descriptor('pip-services-email', 'client', 'null', 'default', '1.0'), new EmailNullClientV1()
         );
         controller.setReferences(references);
     });

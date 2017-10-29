@@ -22,9 +22,9 @@ import { CompositeLogger } from 'pip-services-commons-node';
 import { PartyActivityV1 } from 'pip-clients-activities-node';
 import { IActivitiesClientV1 } from 'pip-clients-activities-node';
 import { MessageTemplatesResolverV1 } from 'pip-clients-msgtemplates-node';
-import { EmailMessageV1 } from 'pip-clients-emaildelivery-node';
-import { EmailRecipientV1 } from 'pip-clients-emaildelivery-node';
-import { IEmailDeliveryClientV1 } from 'pip-clients-emaildelivery-node';
+import { EmailMessageV1 } from 'pip-clients-email-node';
+import { EmailRecipientV1 } from 'pip-clients-email-node';
+import { IEmailClientV1 } from 'pip-clients-email-node';
 
 import { EmailSettingsV1 } from '../data/version1/EmailSettingsV1';
 import { EmailSettingsActivityTypeV1 } from '../data/version1/EmailSettingsActivityTypeV1';
@@ -38,7 +38,7 @@ export class EmailSettingsController implements IConfigurable, IReferenceable, I
         'dependencies.persistence', 'pip-services-emailsettings:persistence:*:*:1.0',
         'dependencies.activities', 'pip-services-activities:client:*:*:1.0',
         'dependencies.msgtemplates', 'pip-services-msgtemplates:client:*:*:1.0',
-        'dependencies.emaildelivery', 'pip-services-emaildelivery:client:*:*:1.0',
+        'dependencies.emaildelivery', 'pip-services-email:client:*:*:1.0',
         
         'message_templates.verify_email.subject', 'Verify your email',
         'message_templates.verify_email.text', 'Your verification code is {{ code }}.',
@@ -59,7 +59,7 @@ export class EmailSettingsController implements IConfigurable, IReferenceable, I
     private _templatesResolver: MessageTemplatesResolverV1 = new MessageTemplatesResolverV1();
     private _logger: CompositeLogger = new CompositeLogger();
     private _activitiesClient: IActivitiesClientV1;
-    private _emailClient: IEmailDeliveryClientV1;
+    private _emailClient: IEmailClientV1;
     private _persistence: IEmailSettingsPersistence;
     private _commandSet: EmailSettingsCommandSet;
 
@@ -85,7 +85,7 @@ export class EmailSettingsController implements IConfigurable, IReferenceable, I
 
         this._persistence = this._dependencyResolver.getOneRequired<IEmailSettingsPersistence>('persistence');
         this._activitiesClient = this._dependencyResolver.getOneOptional<IActivitiesClientV1>('activities');
-        this._emailClient = this._dependencyResolver.getOneRequired<IEmailDeliveryClientV1>('emaildelivery');
+        this._emailClient = this._dependencyResolver.getOneRequired<IEmailClientV1>('emaildelivery');
     }
 
     public getCommandSet(): CommandSet {
