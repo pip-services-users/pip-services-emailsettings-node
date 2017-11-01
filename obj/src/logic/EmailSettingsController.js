@@ -126,10 +126,12 @@ class EmailSettingsController {
                 language: newSettings.language
             };
             let parameters = pip_services_commons_node_1.ConfigParams.fromTuples('code', newSettings.ver_code);
-            this._emailClient.sendMessageToRecipient(correlationId, recipient, message, parameters, (err) => {
-                if (err)
-                    this._logger.error(correlationId, err, 'Failed to send email verification message');
-            });
+            if (this._emailClient) {
+                this._emailClient.sendMessageToRecipient(correlationId, recipient, message, parameters, (err) => {
+                    if (err)
+                        this._logger.error(correlationId, err, 'Failed to send email verification message');
+                });
+            }
         });
     }
     setSettings(correlationId, settings, callback) {

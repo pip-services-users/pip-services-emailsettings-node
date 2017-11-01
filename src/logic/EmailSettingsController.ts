@@ -196,10 +196,12 @@ export class EmailSettingsController implements IConfigurable, IReferenceable, I
                 'code', newSettings.ver_code
             );
 
-            this._emailClient.sendMessageToRecipient(correlationId, recipient, message, parameters, (err) => {
-                if (err)
-                    this._logger.error(correlationId, err, 'Failed to send email verification message');
-            });
+            if (this._emailClient) {
+                this._emailClient.sendMessageToRecipient(correlationId, recipient, message, parameters, (err) => {
+                    if (err)
+                        this._logger.error(correlationId, err, 'Failed to send email verification message');
+                });
+            }
         });
     }
     
