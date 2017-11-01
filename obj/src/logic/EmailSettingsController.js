@@ -41,7 +41,7 @@ class EmailSettingsController {
         this._logger.setReferences(references);
         this._persistence = this._dependencyResolver.getOneRequired('persistence');
         this._activitiesClient = this._dependencyResolver.getOneOptional('activities');
-        this._emailClient = this._dependencyResolver.getOneRequired('emaildelivery');
+        this._emailClient = this._dependencyResolver.getOneOptional('emaildelivery');
     }
     getCommandSet() {
         if (this._commandSet == null)

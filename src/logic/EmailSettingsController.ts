@@ -85,7 +85,7 @@ export class EmailSettingsController implements IConfigurable, IReferenceable, I
 
         this._persistence = this._dependencyResolver.getOneRequired<IEmailSettingsPersistence>('persistence');
         this._activitiesClient = this._dependencyResolver.getOneOptional<IActivitiesClientV1>('activities');
-        this._emailClient = this._dependencyResolver.getOneRequired<IEmailClientV1>('emaildelivery');
+        this._emailClient = this._dependencyResolver.getOneOptional<IEmailClientV1>('emaildelivery');
     }
 
     public getCommandSet(): CommandSet {
