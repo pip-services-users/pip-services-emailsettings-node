@@ -40,8 +40,8 @@ export class EmailSettingsController implements IConfigurable, IReferenceable, I
         'dependencies.msgtemplates', 'pip-services-msgtemplates:client:*:*:1.0',
         'dependencies.emaildelivery', 'pip-services-email:client:*:*:1.0',
         
-        'message_templates.verify_email.subject', 'Verify your email',
-        'message_templates.verify_email.text', 'Your verification code is {{ code }}.',
+        'message_templates.verify_email.subject', 'Verify email',
+        'message_templates.verify_email.text', 'Verification code for {{email}} is {{ code }}.',
 
         'options.magic_code', null,
         'options.signature_length', 100,
