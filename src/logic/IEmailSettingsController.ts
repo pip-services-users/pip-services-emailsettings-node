@@ -18,6 +18,9 @@ export interface IEmailSettingsController {
     setSettings(correlationId: string, settings: EmailSettingsV1,
         callback?: (err: any, settings: EmailSettingsV1) => void): void;
     
+    setVerifiedSettings(correlationId: string, settings: EmailSettingsV1,
+        callback?: (err: any, settings: EmailSettingsV1) => void): void;
+
     setRecipient(correlationId: string, recipientId: string,
         name: string, email: string, language: string,
         callback?: (err: any, settings: EmailSettingsV1) => void): void;

@@ -179,6 +179,26 @@ class EmailSettingsController {
                 callback(err, newSettings);
         });
     }
+    setVerifiedSettings(correlationId, settings, callback) {
+        if (settings.id == null) {
+            callback(new pip_services_commons_node_3.BadRequestException(correlationId, 'NO_RECIPIENT_ID', 'Missing recipient id'), null);
+            return;
+        }
+        if (settings.email == null) {
+            callback(new pip_services_commons_node_3.BadRequestException(correlationId, 'NO_EMAIL', 'Missing email'), null);
+            return;
+        }
+        if (!EmailSettingsController._emailRegex.test(settings.email)) {
+            callback(new pip_services_commons_node_3.BadRequestException(correlationId, 'WRONG_EMAIL', 'Invalid email ' + settings.email).withDetails('email', settings.email), null);
+            return;
+        }
+        let newSettings = _.clone(settings);
+        newSettings.verified = true;
+        newSettings.ver_code = null;
+        newSettings.ver_expire_time = null;
+        newSettings.subscriptions = newSettings.subscriptions || {};
+        this._persistence.set(correlationId, newSettings, callback);
+    }
     setRecipient(correlationId, recipientId, name, email, language, callback) {
         if (recipientId == null) {
             callback(new pip_services_commons_node_3.BadRequestException(correlationId, 'NO_RECIPIENT_ID', 'Missing recipient id'), null);

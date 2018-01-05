@@ -267,6 +267,38 @@ export class EmailSettingsController implements IConfigurable, IReferenceable, I
     }
 
 
+    public setVerifiedSettings(correlationId: string, settings: EmailSettingsV1,
+        callback: (err: any, settings: EmailSettingsV1) => void): void {
+        if (settings.id == null) {
+            callback(new BadRequestException(correlationId, 'NO_RECIPIENT_ID', 'Missing recipient id'), null);
+            return;
+        }
+        if (settings.email == null) {
+            callback(new BadRequestException(correlationId, 'NO_EMAIL', 'Missing email'), null);
+            return;
+        }
+        if (!EmailSettingsController._emailRegex.test(settings.email)) {
+            callback(
+                new BadRequestException(
+                    correlationId, 
+                    'WRONG_EMAIL', 
+                    'Invalid email ' + settings.email
+                ).withDetails('email', settings.email),
+                null
+            );
+            return;
+        }
+    
+        let newSettings: EmailSettingsV1 = _.clone(settings);
+        newSettings.verified = true;
+        newSettings.ver_code = null;
+        newSettings.ver_expire_time = null;
+        newSettings.subscriptions = newSettings.subscriptions || {};
+
+        this._persistence.set(correlationId, newSettings, callback);
+    }
+    
+
     public setRecipient(correlationId: string, recipientId: string,
         name: string, email: string, language: string,
         callback?: (err: any, settings: EmailSettingsV1) => void): void {

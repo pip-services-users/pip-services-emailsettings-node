@@ -7,6 +7,7 @@ export declare class EmailSettingsCommandSet extends CommandSet {
     private makeGetSettingsByIdCommand();
     private makeGetSettingsByEmailSettingsCommand();
     private makeSetSettingsCommand();
+    private makeSetVerifiedSettingsCommand();
     private makeSetRecipientCommand();
     private makeSetSubscriptionsCommand();
     private makeDeleteSettingsByIdCommand();

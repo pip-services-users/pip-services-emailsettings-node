@@ -14,6 +14,7 @@ class EmailSettingsCommandSet extends pip_services_commons_node_1.CommandSet {
         this.addCommand(this.makeGetSettingsByIdCommand());
         this.addCommand(this.makeGetSettingsByEmailSettingsCommand());
         this.addCommand(this.makeSetSettingsCommand());
+        this.addCommand(this.makeSetVerifiedSettingsCommand());
         this.addCommand(this.makeSetRecipientCommand());
         this.addCommand(this.makeSetSubscriptionsCommand());
         this.addCommand(this.makeDeleteSettingsByIdCommand());
@@ -46,6 +47,13 @@ class EmailSettingsCommandSet extends pip_services_commons_node_1.CommandSet {
             .withRequiredProperty('settings', new EmailSettingsV1Schema_1.EmailSettingsV1Schema()), (correlationId, args, callback) => {
             let settings = args.get("settings");
             this._logic.setSettings(correlationId, settings, callback);
+        });
+    }
+    makeSetVerifiedSettingsCommand() {
+        return new pip_services_commons_node_2.Command("set_verified_settings", new pip_services_commons_node_3.ObjectSchema(true)
+            .withRequiredProperty('settings', new EmailSettingsV1Schema_1.EmailSettingsV1Schema()), (correlationId, args, callback) => {
+            let settings = args.get("settings");
+            this._logic.setVerifiedSettings(correlationId, settings, callback);
         });
     }
     makeSetRecipientCommand() {
