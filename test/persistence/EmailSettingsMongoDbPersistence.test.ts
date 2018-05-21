@@ -1,3 +1,5 @@
+let process = require('process');
+
 import { ConfigParams } from 'pip-services-commons-node';
 
 import { EmailSettingsMongoDbPersistence } from '../../src/persistence/EmailSettingsMongoDbPersistence';
@@ -7,22 +9,19 @@ suite('EmailSettingsMongoDbPersistence', ()=> {
     let persistence: EmailSettingsMongoDbPersistence;
     let fixture: EmailSettingsPersistenceFixture;
 
-    let mongoUri = process.env['MONGO_URI'];
-    var mongoCollection = process.env["MONGO_COLLECTION"] || "email_settings";
-    let mongoHost = process.env['MONGO_HOST'] || 'localhost';
-    let mongoPort = process.env['MONGO_PORT'] || 27017;
-    let mongoDatabase = process.env['MONGO_DB'] || 'test';
-
-    if (mongoUri == null && mongoHost == null)
-        return;
-    
     setup((done) => {
-        let dbConfig = ConfigParams.fromTuples(
-            "collection", mongoCollection,
-            'connection.uri', mongoUri,
-            'connection.host', mongoHost,
-            'connection.port', mongoPort,
-            'connection.database', mongoDatabase
+        var MONGO_DB = process.env["MONGO_DB"] || "test";
+        var MONGO_COLLECTION = process.env["MONGO_COLLECTION"] || "email_settings";
+        var MONGO_SERVICE_HOST = process.env["MONGO_SERVICE_HOST"] || "localhost";
+        var MONGO_SERVICE_PORT = process.env["MONGO_SERVICE_PORT"] || "27017";
+        var MONGO_SERVICE_URI = process.env["MONGO_SERVICE_URI"];
+
+        var dbConfig = ConfigParams.fromTuples(
+            "collection", MONGO_COLLECTION,
+            "connection.database", MONGO_DB,
+            "connection.host", MONGO_SERVICE_HOST,
+            "connection.port", MONGO_SERVICE_PORT,
+            "connection.uri", MONGO_SERVICE_URI
         );
 
         persistence = new EmailSettingsMongoDbPersistence();
@@ -31,10 +30,14 @@ suite('EmailSettingsMongoDbPersistence', ()=> {
         fixture = new EmailSettingsPersistenceFixture(persistence);
 
         persistence.open(null, (err: any) => {
-            persistence.clear(null, (err) => {
+            if (err == null) {
+                persistence.clear(null, (err) => {
+                    done(err);
+                });
+            } else {
                 done(err);
-            });
-        });
+            }
+        });;
     });
     
     teardown((done) => {
