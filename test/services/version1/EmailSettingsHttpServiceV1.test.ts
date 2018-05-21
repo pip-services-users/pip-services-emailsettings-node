@@ -69,7 +69,7 @@ suite('EmailSettingsHttpServiceV1', ()=> {
         async.series([
         // Create email settings
             (callback) => {
-                rest.post('/email_settings/set_settings',
+                rest.post('/v1/email_settings/set_settings',
                     {
                         settings: SETTINGS
                     },
@@ -91,7 +91,7 @@ suite('EmailSettingsHttpServiceV1', ()=> {
             (callback) => {
                 settings1.subscriptions.engagement = true;
 
-                rest.post('/email_settings/set_settings',
+                rest.post('/v1/email_settings/set_settings',
                     { 
                         settings: settings1 
                     },
@@ -108,7 +108,7 @@ suite('EmailSettingsHttpServiceV1', ()=> {
             },
         // Delete settings
             (callback) => {
-                rest.post('/email_settings/delete_settings_by_id',
+                rest.post('/v1/email_settings/delete_settings_by_id',
                     {
                         recipient_id: settings1.id
                     },
@@ -121,7 +121,7 @@ suite('EmailSettingsHttpServiceV1', ()=> {
             },
         // Try to get deleted settings
             (callback) => {
-                rest.post('/email_settings/get_settings_by_id',
+                rest.post('/v1/email_settings/get_settings_by_id',
                     {
                         recipient_id: settings1.id
                     },
