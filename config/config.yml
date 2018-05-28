@@ -66,9 +66,9 @@
 # Default controller
 - descriptor: "pip-services-emailsettings:controller:default:default:1.0"
   options:
-    magic_code: {{EMAILSETTINGS_MAGIC_CODE}}{{#unless EMAILSETTINGS_MAGIC_CODE}}'123'{{/unless}}
-    verify_on_create: {{EMAILSETTINGS_VERIFY_ON_CREATE}}{{#unless EMAILSETTINGS_VERIFY_ON_CREATE}}true{{/unless}}
-    verify_on_update: {{EMAILSETTINGS_VERIFY_ON_UPDATE}}{{#unless EMAILSETTINGS_VERIFY_ON_UPDATE}}true{{/unless}}
+    magic_code: {{MAGIC_CODE}}{{#unless MAGIC_CODE}}'123'{{/unless}}
+    verify_on_create: {{VERIFY_ON_CREATE}}{{#unless VERIFY_ON_CREATE}}true{{/unless}}
+    verify_on_update: {{VERIFY_ON_UPDATE}}{{#unless VERIFY_ON_UPDATE}}true{{/unless}}
 
 # Common HTTP endpoint
 - descriptor: "pip-services:endpoint:http:default:1.0"
