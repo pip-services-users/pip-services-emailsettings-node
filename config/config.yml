@@ -88,7 +88,21 @@
 
 # Prometheus metrics service
 - descriptor: "pip-services:metrics-service:prometheus:default:1.0"
+
+# Message templates components
+{{#if CONTENT_SERVICE_HOST}}
+- descriptor: "pip-services-msgtemplates:client:http:default:*"
   connection:
     protocol: "http"
-    host: "0.0.0.0"
-    port: 8082
+    host: "{{{CONTENT_SERVICE_HOST}}}"
+    port: {{CONTENT_SERVICE_PORT}}
+{{/if}}
+
+# Email components
+{{#if INFRASTRUCTURE_SERVICE_HOST}}
+- descriptor: "pip-services-email:client:http:default:1.0"
+  connection:
+    protocol: "http"
+    host: "{{{INFRASTRUCTURE_SERVICE_HOST}}}"
+    port: {{INFRASTRUCTURE_SERVICE_PORT}}
+{{/if}}
