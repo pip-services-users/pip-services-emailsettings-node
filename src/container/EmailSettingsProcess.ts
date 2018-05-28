@@ -5,6 +5,7 @@ import { DefaultOssFactory } from 'pip-services-oss-node';
 
 import { ActivitiesClientFactory } from 'pip-clients-activities-node';
 import { MessageTemplatesClientFactory } from 'pip-clients-msgtemplates-node';
+import { EmailClientFactory } from 'pip-clients-email-node';
 
 import { EmailSettingsServiceFactory } from '../build/EmailSettingsServiceFactory';
 
@@ -15,6 +16,7 @@ export class EmailSettingsProcess extends ProcessContainer {
         this._factories.add(new EmailSettingsServiceFactory);
         this._factories.add(new ActivitiesClientFactory());
         this._factories.add(new MessageTemplatesClientFactory());
+        this._factories.add(new EmailClientFactory());
         this._factories.add(new DefaultNetFactory);
         this._factories.add(new DefaultOssFactory);
     }
