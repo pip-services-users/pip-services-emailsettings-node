@@ -193,7 +193,8 @@ export class EmailSettingsController implements IConfigurable, IReferenceable, I
             };
 
             let parameters = ConfigParams.fromTuples(
-                'code', newSettings.ver_code
+                'code', newSettings.ver_code,
+                'email', newSettings.email
             );
 
             if (this._emailClient) {

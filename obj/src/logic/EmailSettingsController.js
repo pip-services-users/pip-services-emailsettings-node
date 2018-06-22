@@ -125,7 +125,7 @@ class EmailSettingsController {
                 email: newSettings.email,
                 language: newSettings.language
             };
-            let parameters = pip_services_commons_node_1.ConfigParams.fromTuples('code', newSettings.ver_code);
+            let parameters = pip_services_commons_node_1.ConfigParams.fromTuples('code', newSettings.ver_code, 'email', newSettings.email);
             if (this._emailClient) {
                 this._emailClient.sendMessageToRecipient(correlationId, recipient, message, parameters, (err) => {
                     if (err)
