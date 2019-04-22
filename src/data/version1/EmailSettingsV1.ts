@@ -1,4 +1,4 @@
-import { IStringIdentifiable } from 'pip-services-commons-node';
+import { IStringIdentifiable } from 'pip-services3-commons-node';
 
 export class EmailSettingsV1 implements IStringIdentifiable {
     /* Recipient information */

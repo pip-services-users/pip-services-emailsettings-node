@@ -2,13 +2,13 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 let _ = require('lodash');
 let async = require('async');
-const pip_services_commons_node_1 = require("pip-services-commons-node");
-const pip_services_commons_node_2 = require("pip-services-commons-node");
-const pip_services_commons_node_3 = require("pip-services-commons-node");
-const pip_services_commons_node_4 = require("pip-services-commons-node");
-const pip_services_commons_node_5 = require("pip-services-commons-node");
-const pip_services_commons_node_6 = require("pip-services-commons-node");
-const pip_services_components_node_1 = require("pip-services-components-node");
+const pip_services3_commons_node_1 = require("pip-services3-commons-node");
+const pip_services3_commons_node_2 = require("pip-services3-commons-node");
+const pip_services3_commons_node_3 = require("pip-services3-commons-node");
+const pip_services3_commons_node_4 = require("pip-services3-commons-node");
+const pip_services3_commons_node_5 = require("pip-services3-commons-node");
+const pip_services3_commons_node_6 = require("pip-services3-commons-node");
+const pip_services3_components_node_1 = require("pip-services3-components-node");
 const pip_clients_activities_node_1 = require("pip-clients-activities-node");
 const pip_clients_msgtemplates_node_1 = require("pip-clients-msgtemplates-node");
 const EmailSettingsActivityTypeV1_1 = require("../data/version1/EmailSettingsActivityTypeV1");
@@ -19,10 +19,10 @@ class EmailSettingsController {
         this._verifyOnUpdate = true;
         this._expireTimeout = 24 * 60; // in minutes
         this._magicCode = null;
-        this._config = new pip_services_commons_node_1.ConfigParams();
-        this._dependencyResolver = new pip_services_commons_node_2.DependencyResolver(EmailSettingsController._defaultConfig);
+        this._config = new pip_services3_commons_node_1.ConfigParams();
+        this._dependencyResolver = new pip_services3_commons_node_2.DependencyResolver(EmailSettingsController._defaultConfig);
         this._templatesResolver = new pip_clients_msgtemplates_node_1.MessageTemplatesResolverV1();
-        this._logger = new pip_services_components_node_1.CompositeLogger();
+        this._logger = new pip_services3_components_node_1.CompositeLogger();
     }
     configure(config) {
         config = config.setDefaults(EmailSettingsController._defaultConfig);
@@ -82,7 +82,7 @@ class EmailSettingsController {
                     || (oldSettings.email != newSettings.email && this._verifyOnUpdate);
                 if (verify) {
                     newSettings.verified = false;
-                    newSettings.ver_code = pip_services_commons_node_6.IdGenerator.nextShort();
+                    newSettings.ver_code = pip_services3_commons_node_6.IdGenerator.nextShort();
                     newSettings.ver_expire_time = new Date(new Date().getTime() + this._expireTimeout * 60000);
                 }
                 callback();
@@ -108,7 +108,7 @@ class EmailSettingsController {
     sendVerificationMessage(correlationId, newSettings) {
         this._templatesResolver.resolve('verify_email', (err, template) => {
             if (err == null && template == null) {
-                err = new pip_services_commons_node_4.ConfigException(correlationId, 'MISSING_VERIFY_EMAIL', 'Message template "verify_email" is missing');
+                err = new pip_services3_commons_node_4.ConfigException(correlationId, 'MISSING_VERIFY_EMAIL', 'Message template "verify_email" is missing');
             }
             if (err) {
                 this._logger.error(correlationId, err, 'Cannot find verify_email message template');
@@ -125,7 +125,7 @@ class EmailSettingsController {
                 email: newSettings.email,
                 language: newSettings.language
             };
-            let parameters = pip_services_commons_node_1.ConfigParams.fromTuples('code', newSettings.ver_code, 'email', newSettings.email);
+            let parameters = pip_services3_commons_node_1.ConfigParams.fromTuples('code', newSettings.ver_code, 'email', newSettings.email);
             if (this._emailClient) {
                 this._emailClient.sendMessageToRecipient(correlationId, recipient, message, parameters, (err) => {
                     if (err)
@@ -136,15 +136,15 @@ class EmailSettingsController {
     }
     setSettings(correlationId, settings, callback) {
         if (settings.id == null) {
-            callback(new pip_services_commons_node_3.BadRequestException(correlationId, 'NO_RECIPIENT_ID', 'Missing recipient id'), null);
+            callback(new pip_services3_commons_node_3.BadRequestException(correlationId, 'NO_RECIPIENT_ID', 'Missing recipient id'), null);
             return;
         }
         if (settings.email == null) {
-            callback(new pip_services_commons_node_3.BadRequestException(correlationId, 'NO_EMAIL', 'Missing email'), null);
+            callback(new pip_services3_commons_node_3.BadRequestException(correlationId, 'NO_EMAIL', 'Missing email'), null);
             return;
         }
         if (!EmailSettingsController._emailRegex.test(settings.email)) {
-            callback(new pip_services_commons_node_3.BadRequestException(correlationId, 'WRONG_EMAIL', 'Invalid email ' + settings.email).withDetails('email', settings.email), null);
+            callback(new pip_services3_commons_node_3.BadRequestException(correlationId, 'WRONG_EMAIL', 'Invalid email ' + settings.email).withDetails('email', settings.email), null);
             return;
         }
         let newSettings = _.clone(settings);
@@ -181,15 +181,15 @@ class EmailSettingsController {
     }
     setVerifiedSettings(correlationId, settings, callback) {
         if (settings.id == null) {
-            callback(new pip_services_commons_node_3.BadRequestException(correlationId, 'NO_RECIPIENT_ID', 'Missing recipient id'), null);
+            callback(new pip_services3_commons_node_3.BadRequestException(correlationId, 'NO_RECIPIENT_ID', 'Missing recipient id'), null);
             return;
         }
         if (settings.email == null) {
-            callback(new pip_services_commons_node_3.BadRequestException(correlationId, 'NO_EMAIL', 'Missing email'), null);
+            callback(new pip_services3_commons_node_3.BadRequestException(correlationId, 'NO_EMAIL', 'Missing email'), null);
             return;
         }
         if (!EmailSettingsController._emailRegex.test(settings.email)) {
-            callback(new pip_services_commons_node_3.BadRequestException(correlationId, 'WRONG_EMAIL', 'Invalid email ' + settings.email).withDetails('email', settings.email), null);
+            callback(new pip_services3_commons_node_3.BadRequestException(correlationId, 'WRONG_EMAIL', 'Invalid email ' + settings.email).withDetails('email', settings.email), null);
             return;
         }
         let newSettings = _.clone(settings);
@@ -201,11 +201,11 @@ class EmailSettingsController {
     }
     setRecipient(correlationId, recipientId, name, email, language, callback) {
         if (recipientId == null) {
-            callback(new pip_services_commons_node_3.BadRequestException(correlationId, 'NO_RECIPIENT_ID', 'Missing recipient id'), null);
+            callback(new pip_services3_commons_node_3.BadRequestException(correlationId, 'NO_RECIPIENT_ID', 'Missing recipient id'), null);
             return;
         }
         if (email != null && !EmailSettingsController._emailRegex.test(email)) {
-            callback(new pip_services_commons_node_3.BadRequestException(correlationId, 'WRONG_EMAIL', 'Invalid email ' + email).withDetails('email', email), null);
+            callback(new pip_services3_commons_node_3.BadRequestException(correlationId, 'WRONG_EMAIL', 'Invalid email ' + email).withDetails('email', email), null);
             return;
         }
         let oldSettings;
@@ -253,7 +253,7 @@ class EmailSettingsController {
     }
     setSubscriptions(correlationId, recipientId, subscriptions, callback) {
         if (recipientId == null) {
-            callback(new pip_services_commons_node_3.BadRequestException(correlationId, 'NO_ID', 'Missing id'), null);
+            callback(new pip_services3_commons_node_3.BadRequestException(correlationId, 'NO_ID', 'Missing id'), null);
             return;
         }
         let oldSettings;
@@ -306,7 +306,7 @@ class EmailSettingsController {
     }
     resendVerification(correlationId, recipientId, callback) {
         if (recipientId == null) {
-            callback(new pip_services_commons_node_3.BadRequestException(correlationId, 'NO_RECIPIENT_ID', 'Missing recipient id'));
+            callback(new pip_services3_commons_node_3.BadRequestException(correlationId, 'NO_RECIPIENT_ID', 'Missing recipient id'));
             return;
         }
         let settings;
@@ -315,7 +315,7 @@ class EmailSettingsController {
             (callback) => {
                 this._persistence.getOneById(correlationId, recipientId, (err, data) => {
                     if (err == null && data == null) {
-                        err = new pip_services_commons_node_5.NotFoundException(correlationId, 'RECIPIENT_NOT_FOUND', 'Recipient ' + recipientId + ' was not found')
+                        err = new pip_services3_commons_node_5.NotFoundException(correlationId, 'RECIPIENT_NOT_FOUND', 'Recipient ' + recipientId + ' was not found')
                             .withDetails('recipient_id', recipientId);
                     }
                     settings = data;
@@ -325,7 +325,7 @@ class EmailSettingsController {
             // Check if verification is needed
             (callback) => {
                 settings.verified = false;
-                settings.ver_code = pip_services_commons_node_6.IdGenerator.nextShort();
+                settings.ver_code = pip_services3_commons_node_6.IdGenerator.nextShort();
                 settings.ver_expire_time = new Date(new Date().getTime() + this._expireTimeout * 60000);
                 callback();
             },
@@ -367,7 +367,7 @@ class EmailSettingsController {
                 this._persistence.getOneById(correlationId, recipientId, (err, data) => {
                     settings = data;
                     if (settings == null && err == null) {
-                        err = new pip_services_commons_node_5.NotFoundException(correlationId, 'RECIPIENT_NOT_FOUND', 'Recipient ' + recipientId + ' was not found')
+                        err = new pip_services3_commons_node_5.NotFoundException(correlationId, 'RECIPIENT_NOT_FOUND', 'Recipient ' + recipientId + ' was not found')
                             .withDetails('recipient_id', recipientId);
                     }
                     callback(err);
@@ -379,7 +379,7 @@ class EmailSettingsController {
                 verified = verified || (this._magicCode != null && code == this._magicCode);
                 verified = verified && new Date().getTime() < settings.ver_expire_time.getTime();
                 if (!verified) {
-                    callback(new pip_services_commons_node_3.BadRequestException(correlationId, 'INVALID_CODE', 'Invalid email verification code ' + code)
+                    callback(new pip_services3_commons_node_3.BadRequestException(correlationId, 'INVALID_CODE', 'Invalid email verification code ' + code)
                         .withDetails('recipient_id', recipientId)
                         .withDetails('code', code));
                     return;
@@ -405,6 +405,6 @@ class EmailSettingsController {
     }
 }
 EmailSettingsController._emailRegex = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-EmailSettingsController._defaultConfig = pip_services_commons_node_1.ConfigParams.fromTuples('dependencies.persistence', 'pip-services-emailsettings:persistence:*:*:1.0', 'dependencies.activities', 'pip-services-activities:client:*:*:1.0', 'dependencies.msgtemplates', 'pip-services-msgtemplates:client:*:*:1.0', 'dependencies.emaildelivery', 'pip-services-email:client:*:*:1.0', 'message_templates.verify_email.subject', 'Verify email', 'message_templates.verify_email.text', 'Verification code for {{email}} is {{ code }}.', 'options.magic_code', null, 'options.signature_length', 100, 'options.verify_on_create', true, 'options.verify_on_update', true);
+EmailSettingsController._defaultConfig = pip_services3_commons_node_1.ConfigParams.fromTuples('dependencies.persistence', 'pip-services-emailsettings:persistence:*:*:1.0', 'dependencies.activities', 'pip-services-activities:client:*:*:1.0', 'dependencies.msgtemplates', 'pip-services-msgtemplates:client:*:*:1.0', 'dependencies.emaildelivery', 'pip-services-email:client:*:*:1.0', 'message_templates.verify_email.subject', 'Verify email', 'message_templates.verify_email.text', 'Verification code for {{email}} is {{ code }}.', 'options.magic_code', null, 'options.signature_length', 100, 'options.verify_on_create', true, 'options.verify_on_update', true);
 exports.EmailSettingsController = EmailSettingsController;
 //# sourceMappingURL=EmailSettingsController.js.map

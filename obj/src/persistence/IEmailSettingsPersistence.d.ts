@@ -1,5 +1,5 @@
-import { IGetter } from 'pip-services-data-node';
-import { IWriter } from 'pip-services-data-node';
+import { IGetter } from 'pip-services3-data-node';
+import { IWriter } from 'pip-services3-data-node';
 import { EmailSettingsV1 } from '../data/version1/EmailSettingsV1';
 export interface IEmailSettingsPersistence extends IGetter<EmailSettingsV1, string>, IWriter<EmailSettingsV1, string> {
     getListByIds(correlationId: string, ids: string[], callback: (err: any, items: EmailSettingsV1[]) => void): void;
