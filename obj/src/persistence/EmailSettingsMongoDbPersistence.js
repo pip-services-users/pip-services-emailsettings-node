@@ -1,11 +1,11 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 let _ = require('lodash');
-const pip_services3_mongodb_node_1 = require("pip-services3-mongodb-node");
-const EmailSettingsMongoDbSchema_1 = require("./EmailSettingsMongoDbSchema");
-class EmailSettingsMongoDbPersistence extends pip_services3_mongodb_node_1.IdentifiableMongoDbPersistence {
+const pip_services3_mongoose_node_1 = require("pip-services3-mongoose-node");
+const EmailSettingsMongooseSchema_1 = require("./EmailSettingsMongooseSchema");
+class EmailSettingsMongoDbPersistence extends pip_services3_mongoose_node_1.IdentifiableMongoosePersistence {
     constructor() {
-        super('email_settings', EmailSettingsMongoDbSchema_1.EmailSettingsMongoDbSchema());
+        super('email_settings', EmailSettingsMongooseSchema_1.EmailSettingsMongooseSchema());
     }
     getOneByEmailSettings(correlationId, email, callback) {
         this._model.findOne({
