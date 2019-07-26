@@ -15,7 +15,7 @@ export class EmailSettingsCouchbasePersistence
     implements IEmailSettingsPersistence {
 
     constructor() {
-        super('email_settings');
+        super('users', 'email_settings');
     }
 
     public getOneByEmail(correlationId: string, email: string,
