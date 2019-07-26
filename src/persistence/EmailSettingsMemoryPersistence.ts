@@ -16,7 +16,7 @@ export class EmailSettingsMemoryPersistence
         super();
     }
 
-    public getOneByEmailSettings(correlationId: string, email: string,
+    public getOneByEmail(correlationId: string, email: string,
         callback: (err: any, settings: EmailSettingsV1) => void): void {
         
         let items = this._items.filter((x) => {return x.email == email;});

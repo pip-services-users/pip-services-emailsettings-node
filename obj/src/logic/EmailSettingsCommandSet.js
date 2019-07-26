@@ -39,7 +39,7 @@ class EmailSettingsCommandSet extends pip_services3_commons_node_1.CommandSet {
         return new pip_services3_commons_node_2.Command("get_settings_by_email", new pip_services3_commons_node_3.ObjectSchema(true)
             .withRequiredProperty('email', pip_services3_commons_node_5.TypeCode.String), (correlationId, args, callback) => {
             let email = args.getAsNullableString("email");
-            this._logic.getSettingsByEmailSettings(correlationId, email, callback);
+            this._logic.getSettingsByEmail(correlationId, email, callback);
         });
     }
     makeSetSettingsCommand() {

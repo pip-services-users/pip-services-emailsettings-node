@@ -64,7 +64,7 @@ export class EmailSettingsPersistenceFixture {
             },
         // Get settings by email
             (callback) => {
-                this._persistence.getOneByEmailSettings(
+                this._persistence.getOneByEmail(
                     null,
                     SETTINGS1.email,
                     (err, settings) => {

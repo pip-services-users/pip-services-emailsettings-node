@@ -64,7 +64,7 @@ export class EmailSettingsCommandSet extends CommandSet {
 				.withRequiredProperty('email', TypeCode.String),
             (correlationId: string, args: Parameters, callback: (err: any, result: any) => void) => {
                 let email = args.getAsNullableString("email");
-                this._logic.getSettingsByEmailSettings(correlationId, email, callback);
+                this._logic.getSettingsByEmail(correlationId, email, callback);
             }
 		);
 	}

@@ -120,9 +120,9 @@ export class EmailSettingsController implements IConfigurable, IReferenceable, I
         });
     }
 
-    public getSettingsByEmailSettings(correlationId: string, email: string,
+    public getSettingsByEmail(correlationId: string, email: string,
         callback: (err: any, settings: EmailSettingsV1) => void): void {
-        this._persistence.getOneByEmailSettings(correlationId, email, (err, settings) => {
+        this._persistence.getOneByEmail(correlationId, email, (err, settings) => {
             callback(err, this.settingsToPublic(settings));
         });
     }

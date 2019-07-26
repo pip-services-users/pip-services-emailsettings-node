@@ -17,7 +17,7 @@ export class EmailSettingsMongoDbPersistence
         super('email_settings', EmailSettingsMongooseSchema());
     }
 
-    public getOneByEmailSettings(correlationId: string, email: string,
+    public getOneByEmail(correlationId: string, email: string,
         callback: (err: any, item: EmailSettingsV1) => void): void {
         this._model.findOne(
             {

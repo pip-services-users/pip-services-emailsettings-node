@@ -5,6 +5,7 @@ const pip_clients_activities_node_1 = require("pip-clients-activities-node");
 const pip_clients_msgtemplates_node_1 = require("pip-clients-msgtemplates-node");
 const pip_clients_email_node_1 = require("pip-clients-email-node");
 const pip_services3_rpc_node_1 = require("pip-services3-rpc-node");
+const pip_services3_grpc_node_1 = require("pip-services3-grpc-node");
 const EmailSettingsServiceFactory_1 = require("../build/EmailSettingsServiceFactory");
 class EmailSettingsProcess extends pip_services3_container_node_1.ProcessContainer {
     constructor() {
@@ -14,6 +15,7 @@ class EmailSettingsProcess extends pip_services3_container_node_1.ProcessContain
         this._factories.add(new pip_clients_msgtemplates_node_1.MessageTemplatesClientFactory());
         this._factories.add(new pip_clients_email_node_1.EmailClientFactory());
         this._factories.add(new pip_services3_rpc_node_1.DefaultRpcFactory());
+        this._factories.add(new pip_services3_grpc_node_1.DefaultGrpcFactory());
     }
 }
 exports.EmailSettingsProcess = EmailSettingsProcess;

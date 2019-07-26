@@ -68,8 +68,8 @@ class EmailSettingsController {
             callback(err, settings);
         });
     }
-    getSettingsByEmailSettings(correlationId, email, callback) {
-        this._persistence.getOneByEmailSettings(correlationId, email, (err, settings) => {
+    getSettingsByEmail(correlationId, email, callback) {
+        this._persistence.getOneByEmail(correlationId, email, (err, settings) => {
             callback(err, this.settingsToPublic(settings));
         });
     }

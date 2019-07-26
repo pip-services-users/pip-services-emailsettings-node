@@ -13,7 +13,7 @@ export interface IEmailSettingsPersistence
 
     getOneById(correlation_id: string, id: string, callback: (err: any, item: EmailSettingsV1) => void): void;
 
-    getOneByEmailSettings(correlation_id: string, email: string, callback: (err: any, item: EmailSettingsV1) => void): void;
+    getOneByEmail(correlation_id: string, email: string, callback: (err: any, item: EmailSettingsV1) => void): void;
 
     set(correlation_id: string, item: EmailSettingsV1, callback?: (err: any, item: EmailSettingsV1) => void): void;
     

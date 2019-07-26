@@ -6,7 +6,7 @@ class EmailSettingsMemoryPersistence extends pip_services3_data_node_1.Identifia
     constructor() {
         super();
     }
-    getOneByEmailSettings(correlationId, email, callback) {
+    getOneByEmail(correlationId, email, callback) {
         let items = this._items.filter((x) => { return x.email == email; });
         let item = items.length > 0 ? items[0] : null;
         if (item != null)

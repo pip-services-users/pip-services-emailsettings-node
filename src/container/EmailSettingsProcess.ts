@@ -5,6 +5,7 @@ import { ActivitiesClientFactory } from 'pip-clients-activities-node';
 import { MessageTemplatesClientFactory } from 'pip-clients-msgtemplates-node';
 import { EmailClientFactory } from 'pip-clients-email-node';
 import { DefaultRpcFactory } from 'pip-services3-rpc-node';
+import { DefaultGrpcFactory } from 'pip-services3-grpc-node';
 
 import { EmailSettingsServiceFactory } from '../build/EmailSettingsServiceFactory';
 
@@ -17,6 +18,7 @@ export class EmailSettingsProcess extends ProcessContainer {
         this._factories.add(new MessageTemplatesClientFactory());
         this._factories.add(new EmailClientFactory());
         this._factories.add(new DefaultRpcFactory());
+        this._factories.add(new DefaultGrpcFactory());
     }
 
 

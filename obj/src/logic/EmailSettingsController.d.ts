@@ -27,7 +27,7 @@ export declare class EmailSettingsController implements IConfigurable, IReferenc
     private settingsToPublic(settings);
     getSettingsByIds(correlationId: string, recipientIds: string[], callback: (err: any, settings: EmailSettingsV1[]) => void): void;
     getSettingsById(correlationId: string, recipientId: string, callback: (err: any, settings: EmailSettingsV1) => void): void;
-    getSettingsByEmailSettings(correlationId: string, email: string, callback: (err: any, settings: EmailSettingsV1) => void): void;
+    getSettingsByEmail(correlationId: string, email: string, callback: (err: any, settings: EmailSettingsV1) => void): void;
     private verifyAndSaveSettings(correlationId, oldSettings, newSettings, callback);
     private sendVerificationMessage(correlationId, newSettings);
     setSettings(correlationId: string, settings: EmailSettingsV1, callback: (err: any, settings: EmailSettingsV1) => void): void;

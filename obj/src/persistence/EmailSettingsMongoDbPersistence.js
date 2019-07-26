@@ -7,7 +7,7 @@ class EmailSettingsMongoDbPersistence extends pip_services3_mongoose_node_1.Iden
     constructor() {
         super('email_settings', EmailSettingsMongooseSchema_1.EmailSettingsMongooseSchema());
     }
-    getOneByEmailSettings(correlationId, email, callback) {
+    getOneByEmail(correlationId, email, callback) {
         this._model.findOne({
             email: email
         }, (err, item) => {

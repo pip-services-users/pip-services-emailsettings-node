@@ -6,4 +6,6 @@ var EmailSettingsFilePersistence_1 = require("./EmailSettingsFilePersistence");
 exports.EmailSettingsFilePersistence = EmailSettingsFilePersistence_1.EmailSettingsFilePersistence;
 var EmailSettingsMongoDbPersistence_1 = require("./EmailSettingsMongoDbPersistence");
 exports.EmailSettingsMongoDbPersistence = EmailSettingsMongoDbPersistence_1.EmailSettingsMongoDbPersistence;
+var EmailSettingsCouchbasePersistence_1 = require("./EmailSettingsCouchbasePersistence");
+exports.EmailSettingsCouchbasePersistence = EmailSettingsCouchbasePersistence_1.EmailSettingsCouchbasePersistence;
 //# sourceMappingURL=index.js.map

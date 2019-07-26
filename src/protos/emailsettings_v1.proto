@@ -1,0 +1,134 @@
+// Copyright 2015 gRPC authors.
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//     http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "pip-services.users.emailsettings.version1";
+option java_outer_classname = "EmailSettingsProtoV1";
+option objc_class_prefix = "EMAIL_SETTINGS_CMD_V1";
+
+package emailsettings_v1;
+
+message ErrorDescription {
+  string type = 1;
+  string category = 2;
+  string code = 3;
+  string correlation_id = 4;
+  string status = 5;
+  string message = 6;
+  string cause = 7;
+  string stack_trace = 8;
+  map<string, string> details = 9;
+}
+
+message PagingParams {
+    int64 skip = 1;
+    int32 take = 2;
+    bool total = 3;
+}
+
+message EmailSettings {
+    // Recipient information
+    string id = 1;
+    string name = 2;
+    string email = 3;
+    string language = 4;
+
+    // EmailSettings management
+    string subscriptions = 5;
+    bool verified = 6;
+    string ver_code = 7;
+    string ver_expire_time = 8;
+
+    // Custom fields
+    string custom_hdr = 9;
+    string custom_dat = 10;
+}
+
+message EmailSettingsPage {
+    int64 total = 1;
+    repeated EmailSettings data = 2;
+}
+
+// The emailsettings service definition.
+service EmailSettingsx {
+  rpc get_settings_by_ids (EmailSettingsIdsRequest) returns (EmailSettingsListReply) {}
+  rpc get_settings_by_id (EmailSettingsIdRequest) returns (EmailSettingsObjectReply) {}
+  rpc get_settings_by_email (EmailSettingsEmailRequest) returns (EmailSettingsObjectReply) {}
+  rpc set_settings (EmailSettingsObjectRequest) returns (EmailSettingsObjectReply) {}
+  rpc set_verified_settings (EmailSettingsObjectRequest) returns (EmailSettingsObjectReply) {}
+  rpc set_recipient (EmailSettingsRecipientRequest) returns (EmailSettingsObjectReply) {}
+  rpc set_subscriptions (EmailSettingsSubscriptionsRequest) returns (EmailSettingsObjectReply) {}
+  rpc delete_settings_by_id (EmailSettingsIdRequest) returns (EmailSettingsEmptyReply) {}
+  rpc resend_verification (EmailSettingsIdRequest) returns (EmailSettingsEmptyReply) {}
+}
+
+// The request message containing the settings ids request.
+message EmailSettingsIdsRequest {
+  string correlation_id = 1;
+  repeated string recipient_ids = 2;
+}
+
+// The response message containing the settings list response
+message EmailSettingsListReply {
+  ErrorDescription error = 1;
+  repeated EmailSettings settings = 2;
+}
+
+// The request message containing the settings id request.
+message EmailSettingsIdRequest {
+  string correlation_id = 1;
+  string recipient_id = 2;
+}
+
+// The request message containing the settings email request.
+message EmailSettingsEmailRequest {
+  string correlation_id = 1;
+  string email = 2;
+}
+
+// The request message containing the settings object request.
+message EmailSettingsObjectRequest {
+  string correlation_id = 1;
+  EmailSettings settings = 2;
+}
+
+// The response message containing the settings object response
+message EmailSettingsObjectReply {
+  ErrorDescription error = 1;
+  EmailSettings settings = 2;
+}
+
+// The request message containing the settings recipient request.
+message EmailSettingsRecipientRequest {
+  string correlation_id = 1;
+  string recipient_id = 2;
+  string name = 3;
+  string email = 4;
+  string language = 5;
+}
+
+// The request message containing the settings subscriptions request.
+message EmailSettingsSubscriptionsRequest {
+  string correlation_id = 1;
+  string recipient_id = 2;
+  string subscriptions = 3;
+}
+
+// The response message containing the settings empty response
+message EmailSettingsEmptyReply {
+  ErrorDescription error = 1;
+}
+

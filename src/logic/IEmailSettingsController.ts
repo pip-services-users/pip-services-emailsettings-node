@@ -12,7 +12,7 @@ export interface IEmailSettingsController {
     getSettingsById(correlationId: string, recipientId: string,
         callback: (err: any, settings: EmailSettingsV1) => void): void;
 
-    getSettingsByEmailSettings(correlationId: string, email: string,
+    getSettingsByEmail(correlationId: string, email: string,
         callback: (err: any, settings: EmailSettingsV1) => void): void;
 
     setSettings(correlationId: string, settings: EmailSettingsV1,
