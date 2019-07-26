@@ -73,6 +73,7 @@ service EmailSettingsx {
   rpc set_subscriptions (EmailSettingsSubscriptionsRequest) returns (EmailSettingsObjectReply) {}
   rpc delete_settings_by_id (EmailSettingsIdRequest) returns (EmailSettingsEmptyReply) {}
   rpc resend_verification (EmailSettingsIdRequest) returns (EmailSettingsEmptyReply) {}
+  rpc verify_email (EmailSettingsCodeRequest) returns (EmailSettingsEmptyReply) {}
 }
 
 // The request message containing the settings ids request.
@@ -125,6 +126,13 @@ message EmailSettingsSubscriptionsRequest {
   string correlation_id = 1;
   string recipient_id = 2;
   string subscriptions = 3;
+}
+
+// The request message containing the settings code request.
+message EmailSettingsCodeRequest {
+  string correlation_id = 1;
+  string recipient_id = 2;
+  string code = 3;
 }
 
 // The response message containing the settings empty response

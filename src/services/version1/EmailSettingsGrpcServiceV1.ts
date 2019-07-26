@@ -210,6 +210,25 @@ export class EmailSettingsGrpcServiceV1 extends GrpcService {
             }
         );
     }    
+
+    private verifyEmail(call: any, callback: any) {
+        let correlationId = call.request.getCorrelationId();
+        let recipientId = call.request.getRecipientId();
+        let code = call.request.getCode();
+
+        this._controller.verifyEmail(
+            correlationId,
+            recipientId, code,
+            (err) => {
+                let error = EmailSettingsGrpcConverterV1.fromError(err);
+
+                let response = new messages.EmailSettingsEmptyReply();
+                response.setError(error);
+
+                callback(err, response);
+            }
+        );
+    }    
     
     public register() {
         this.registerMethod(
@@ -265,5 +284,12 @@ export class EmailSettingsGrpcServiceV1 extends GrpcService {
             null, 
             this.resendVerification
         );
+
+        this.registerMethod(
+            'verify_email',
+            null, 
+            this.verifyEmail
+        );
+
     }
 }

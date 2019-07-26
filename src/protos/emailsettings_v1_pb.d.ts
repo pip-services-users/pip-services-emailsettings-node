@@ -384,6 +384,34 @@ export namespace EmailSettingsSubscriptionsRequest {
   }
 }
 
+export class EmailSettingsCodeRequest extends jspb.Message {
+  getCorrelationId(): string;
+  setCorrelationId(value: string): void;
+
+  getRecipientId(): string;
+  setRecipientId(value: string): void;
+
+  getCode(): string;
+  setCode(value: string): void;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): EmailSettingsCodeRequest.AsObject;
+  static toObject(includeInstance: boolean, msg: EmailSettingsCodeRequest): EmailSettingsCodeRequest.AsObject;
+  static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
+  static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
+  static serializeBinaryToWriter(message: EmailSettingsCodeRequest, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): EmailSettingsCodeRequest;
+  static deserializeBinaryFromReader(message: EmailSettingsCodeRequest, reader: jspb.BinaryReader): EmailSettingsCodeRequest;
+}
+
+export namespace EmailSettingsCodeRequest {
+  export type AsObject = {
+    correlationId: string,
+    recipientId: string,
+    code: string,
+  }
+}
+
 export class EmailSettingsEmptyReply extends jspb.Message {
   hasError(): boolean;
   clearError(): void;

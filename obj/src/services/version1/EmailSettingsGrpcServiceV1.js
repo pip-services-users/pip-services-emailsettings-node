@@ -123,6 +123,17 @@ class EmailSettingsGrpcServiceV1 extends pip_services3_grpc_node_1.GrpcService {
             callback(err, response);
         });
     }
+    verifyEmail(call, callback) {
+        let correlationId = call.request.getCorrelationId();
+        let recipientId = call.request.getRecipientId();
+        let code = call.request.getCode();
+        this._controller.verifyEmail(correlationId, recipientId, code, (err) => {
+            let error = EmailSettingsGrpcConverterV1_1.EmailSettingsGrpcConverterV1.fromError(err);
+            let response = new messages.EmailSettingsEmptyReply();
+            response.setError(error);
+            callback(err, response);
+        });
+    }
     register() {
         this.registerMethod('get_settings_by_ids', null, this.getSettingsByIds);
         this.registerMethod('get_settings_by_id', null, this.getSettingsById);
@@ -133,6 +144,7 @@ class EmailSettingsGrpcServiceV1 extends pip_services3_grpc_node_1.GrpcService {
         this.registerMethod('set_subscriptions', null, this.setSubscriptions);
         this.registerMethod('delete_settings_by_id', null, this.deleteSettingsById);
         this.registerMethod('resend_verification', null, this.resendVerification);
+        this.registerMethod('verify_email', null, this.verifyEmail);
     }
 }
 exports.EmailSettingsGrpcServiceV1 = EmailSettingsGrpcServiceV1;

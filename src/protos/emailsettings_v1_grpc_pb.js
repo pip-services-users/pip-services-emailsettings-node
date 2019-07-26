@@ -19,6 +19,17 @@
 var grpc = require('grpc');
 var emailsettings_v1_pb = require('./emailsettings_v1_pb.js');
 
+function serialize_emailsettings_v1_EmailSettingsCodeRequest(arg) {
+  if (!(arg instanceof emailsettings_v1_pb.EmailSettingsCodeRequest)) {
+    throw new Error('Expected argument of type emailsettings_v1.EmailSettingsCodeRequest');
+  }
+  return Buffer.from(arg.serializeBinary());
+}
+
+function deserialize_emailsettings_v1_EmailSettingsCodeRequest(buffer_arg) {
+  return emailsettings_v1_pb.EmailSettingsCodeRequest.deserializeBinary(new Uint8Array(buffer_arg));
+}
+
 function serialize_emailsettings_v1_EmailSettingsEmailRequest(arg) {
   if (!(arg instanceof emailsettings_v1_pb.EmailSettingsEmailRequest)) {
     throw new Error('Expected argument of type emailsettings_v1.EmailSettingsEmailRequest');
@@ -217,6 +228,17 @@ var EmailSettingsxService = exports.EmailSettingsxService = {
     responseType: emailsettings_v1_pb.EmailSettingsEmptyReply,
     requestSerialize: serialize_emailsettings_v1_EmailSettingsIdRequest,
     requestDeserialize: deserialize_emailsettings_v1_EmailSettingsIdRequest,
+    responseSerialize: serialize_emailsettings_v1_EmailSettingsEmptyReply,
+    responseDeserialize: deserialize_emailsettings_v1_EmailSettingsEmptyReply,
+  },
+  verify_email: {
+    path: '/emailsettings_v1.EmailSettingsx/verify_email',
+    requestStream: false,
+    responseStream: false,
+    requestType: emailsettings_v1_pb.EmailSettingsCodeRequest,
+    responseType: emailsettings_v1_pb.EmailSettingsEmptyReply,
+    requestSerialize: serialize_emailsettings_v1_EmailSettingsCodeRequest,
+    requestDeserialize: deserialize_emailsettings_v1_EmailSettingsCodeRequest,
     responseSerialize: serialize_emailsettings_v1_EmailSettingsEmptyReply,
     responseDeserialize: deserialize_emailsettings_v1_EmailSettingsEmptyReply,
   },

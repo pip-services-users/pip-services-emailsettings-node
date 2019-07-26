@@ -24,18 +24,18 @@ export declare class EmailSettingsController implements IConfigurable, IReferenc
     configure(config: ConfigParams): void;
     setReferences(references: IReferences): void;
     getCommandSet(): CommandSet;
-    private settingsToPublic(settings);
+    private settingsToPublic;
     getSettingsByIds(correlationId: string, recipientIds: string[], callback: (err: any, settings: EmailSettingsV1[]) => void): void;
     getSettingsById(correlationId: string, recipientId: string, callback: (err: any, settings: EmailSettingsV1) => void): void;
     getSettingsByEmail(correlationId: string, email: string, callback: (err: any, settings: EmailSettingsV1) => void): void;
-    private verifyAndSaveSettings(correlationId, oldSettings, newSettings, callback);
-    private sendVerificationMessage(correlationId, newSettings);
+    private verifyAndSaveSettings;
+    private sendVerificationMessage;
     setSettings(correlationId: string, settings: EmailSettingsV1, callback: (err: any, settings: EmailSettingsV1) => void): void;
     setVerifiedSettings(correlationId: string, settings: EmailSettingsV1, callback: (err: any, settings: EmailSettingsV1) => void): void;
     setRecipient(correlationId: string, recipientId: string, name: string, email: string, language: string, callback?: (err: any, settings: EmailSettingsV1) => void): void;
     setSubscriptions(correlationId: string, recipientId: string, subscriptions: any, callback?: (err: any, settings: EmailSettingsV1) => void): void;
     deleteSettingsById(correlationId: string, recipientId: string, callback?: (err: any) => void): void;
     resendVerification(correlationId: string, recipientId: string, callback?: (err: any) => void): void;
-    private logActivity(correlationId, settings, activityType);
+    private logActivity;
     verifyEmail(correlationId: string, recipientId: string, code: string, callback?: (err: any) => void): void;
 }
