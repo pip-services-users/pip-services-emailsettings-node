@@ -1,3 +1,3 @@
 export declare class EmailSettingsActivityTypeV1 {
-    static readonly EmailVerified = "email verified";
+    static readonly EmailVerified: string;
 }
