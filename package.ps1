@@ -21,8 +21,8 @@ try {
     docker-compose -f ./docker/docker-compose.yml up -d
 
     # Test using curl
-    Start-Sleep -Seconds 10
-    Invoke-WebRequest -Uri http://localhost:8080/heartbeat
+    #Start-Sleep -Seconds 10
+    #Invoke-WebRequest -Uri http://localhost:8080/heartbeat
     #$postParams = @{ recipient_id="123" }
     #Invoke-WebRequest -Uri http://localhost:8080/v1/email_settings/get_settings_by_id -Method POST -Body $postParams
 
