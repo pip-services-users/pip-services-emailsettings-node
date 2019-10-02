@@ -535,7 +535,7 @@ export class EmailSettingsController implements IConfigurable, IReferenceable, I
             (callback) => {
                 let verified = settings.ver_code == code;
                 verified = verified || (this._magicCode != null && code == this._magicCode);
-                verified = verified && new Date().getTime() < settings.ver_expire_time.getTime();
+                verified = verified && new Date().getTime() < new Date(settings.ver_expire_time).getTime();
 
                 if (!verified) {
                     callback(

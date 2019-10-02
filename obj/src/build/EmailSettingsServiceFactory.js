@@ -23,6 +23,7 @@ class EmailSettingsServiceFactory extends pip_services3_components_node_1.Factor
         this.registerAsType(EmailSettingsServiceFactory.GrpcServiceDescriptor, EmailSettingsGrpcServiceV1_1.EmailSettingsGrpcServiceV1);
     }
 }
+exports.EmailSettingsServiceFactory = EmailSettingsServiceFactory;
 EmailSettingsServiceFactory.Descriptor = new pip_services3_commons_node_1.Descriptor("pip-services-emailsettings", "factory", "default", "default", "1.0");
 EmailSettingsServiceFactory.MemoryPersistenceDescriptor = new pip_services3_commons_node_1.Descriptor("pip-services-emailsettings", "persistence", "memory", "*", "1.0");
 EmailSettingsServiceFactory.FilePersistenceDescriptor = new pip_services3_commons_node_1.Descriptor("pip-services-emailsettings", "persistence", "file", "*", "1.0");
@@ -32,5 +33,4 @@ EmailSettingsServiceFactory.ControllerDescriptor = new pip_services3_commons_nod
 EmailSettingsServiceFactory.HttpServiceDescriptor = new pip_services3_commons_node_1.Descriptor("pip-services-emailsettings", "service", "http", "*", "1.0");
 EmailSettingsServiceFactory.CommandableGrpcServiceDescriptor = new pip_services3_commons_node_1.Descriptor("pip-services-emailsettings", "service", "commandable-grpc", "*", "1.0");
 EmailSettingsServiceFactory.GrpcServiceDescriptor = new pip_services3_commons_node_1.Descriptor("pip-services-emailsettings", "service", "grpc", "*", "1.0");
-exports.EmailSettingsServiceFactory = EmailSettingsServiceFactory;
 //# sourceMappingURL=EmailSettingsServiceFactory.js.map

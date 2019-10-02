@@ -377,7 +377,7 @@ class EmailSettingsController {
             (callback) => {
                 let verified = settings.ver_code == code;
                 verified = verified || (this._magicCode != null && code == this._magicCode);
-                verified = verified && new Date().getTime() < settings.ver_expire_time.getTime();
+                verified = verified && new Date().getTime() < new Date(settings.ver_expire_time).getTime();
                 if (!verified) {
                     callback(new pip_services3_commons_node_3.BadRequestException(correlationId, 'INVALID_CODE', 'Invalid email verification code ' + code)
                         .withDetails('recipient_id', recipientId)
@@ -404,7 +404,7 @@ class EmailSettingsController {
         });
     }
 }
+exports.EmailSettingsController = EmailSettingsController;
 EmailSettingsController._emailRegex = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 EmailSettingsController._defaultConfig = pip_services3_commons_node_1.ConfigParams.fromTuples('dependencies.persistence', 'pip-services-emailsettings:persistence:*:*:1.0', 'dependencies.activities', 'pip-services-activities:client:*:*:1.0', 'dependencies.msgtemplates', 'pip-services-msgtemplates:client:*:*:1.0', 'dependencies.emaildelivery', 'pip-services-email:client:*:*:1.0', 'message_templates.verify_email.subject', 'Verify email', 'message_templates.verify_email.text', 'Verification code for {{email}} is {{ code }}.', 'options.magic_code', null, 'options.signature_length', 100, 'options.verify_on_create', true, 'options.verify_on_update', true);
-exports.EmailSettingsController = EmailSettingsController;
 //# sourceMappingURL=EmailSettingsController.js.map
