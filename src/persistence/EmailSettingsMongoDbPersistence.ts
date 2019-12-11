@@ -1,25 +1,21 @@
 let _ = require('lodash');
 
-import { FilterParams } from 'pip-services3-commons-node';
-import { PagingParams } from 'pip-services3-commons-node';
-import { DataPage } from 'pip-services3-commons-node';
-import { IdentifiableMongoosePersistence } from 'pip-services3-mongoose-node';
+import { IdentifiableMongoDbPersistence } from 'pip-services3-mongodb-node';
 
 import { EmailSettingsV1 } from '../data/version1/EmailSettingsV1';
 import { IEmailSettingsPersistence } from './IEmailSettingsPersistence';
-import { EmailSettingsMongooseSchema } from './EmailSettingsMongooseSchema';
 
 export class EmailSettingsMongoDbPersistence 
-    extends IdentifiableMongoosePersistence<EmailSettingsV1, string> 
+    extends IdentifiableMongoDbPersistence<EmailSettingsV1, string> 
     implements IEmailSettingsPersistence {
 
     constructor() {
-        super('email_settings', EmailSettingsMongooseSchema());
+        super('email_settings');
     }
 
     public getOneByEmail(correlationId: string, email: string,
         callback: (err: any, item: EmailSettingsV1) => void): void {
-        this._model.findOne(
+        this._collection.findOne(
             {
                 email: email
             }, 
