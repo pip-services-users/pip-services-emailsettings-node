@@ -5,3 +5,4 @@
 /data/email_settings.json
 /obj/test
 /docker/id_rsa*
+/package-lock.json
