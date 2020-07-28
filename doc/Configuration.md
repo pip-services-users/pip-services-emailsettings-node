@@ -85,6 +85,7 @@ Example:
     magic_code: '123'
     verify_on_create: true
     verify_on_update: true
+    code_lenth: 4 # recovery code length (min 3, max 9, default 9)
 ```
 
 ## <a name="service"></a> Services

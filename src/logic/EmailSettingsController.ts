@@ -46,7 +46,9 @@ export class EmailSettingsController implements IConfigurable, IReferenceable, I
         'options.magic_code', null,
         'options.signature_length', 100,
         'options.verify_on_create', true,
-        'options.verify_on_update', true
+        'options.verify_on_update', true,
+        'options.code_length', 9 // verification code length (3-9, default 9)
+
     );
 
     private _verifyOnCreate: boolean = true;
@@ -62,6 +64,7 @@ export class EmailSettingsController implements IConfigurable, IReferenceable, I
     private _emailClient: IEmailClientV1;
     private _persistence: IEmailSettingsPersistence;
     private _commandSet: EmailSettingsCommandSet;
+    private _code_length: number = 9;
 
     public configure(config: ConfigParams): void {
         config = config.setDefaults(EmailSettingsController._defaultConfig);
@@ -74,6 +77,10 @@ export class EmailSettingsController implements IConfigurable, IReferenceable, I
         this._verifyOnUpdate = config.getAsBooleanWithDefault('options.verify_on_update', this._verifyOnUpdate);
         this._expireTimeout = config.getAsIntegerWithDefault('options.verify_expire_timeout', this._expireTimeout);
         this._magicCode = config.getAsStringWithDefault('options.magic_code', this._magicCode);
+        this._code_length = config.getAsIntegerWithDefault('options.code_length', this._code_length);
+        this._code_length = this._code_length <= 9 ? this._code_length : 9;
+        this._code_length = this._code_length >= 3 ? this._code_length : 3;
+
         
         this._config = config;
     }
@@ -140,7 +147,7 @@ export class EmailSettingsController implements IConfigurable, IReferenceable, I
                     || (oldSettings.email != newSettings.email && this._verifyOnUpdate);
                 if (verify) {
                     newSettings.verified = false;
-                    newSettings.ver_code = IdGenerator.nextShort();
+                    newSettings.ver_code = IdGenerator.nextShort().substr(0, this._code_length);
                     newSettings.ver_expire_time = new Date(new Date().getTime() + this._expireTimeout * 60000);
                 }
                 callback();
@@ -461,7 +468,7 @@ export class EmailSettingsController implements IConfigurable, IReferenceable, I
             // Check if verification is needed
             (callback) => {
                 settings.verified = false;
-                settings.ver_code = IdGenerator.nextShort();
+                settings.ver_code = IdGenerator.nextShort().substr(0, this._code_length);
                 settings.ver_expire_time = new Date(new Date().getTime() + this._expireTimeout * 60000);
 
                 callback();

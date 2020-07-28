@@ -23,6 +23,7 @@ class EmailSettingsController {
         this._dependencyResolver = new pip_services3_commons_node_2.DependencyResolver(EmailSettingsController._defaultConfig);
         this._templatesResolver = new pip_clients_msgtemplates_node_1.MessageTemplatesResolverV1();
         this._logger = new pip_services3_components_node_1.CompositeLogger();
+        this._code_length = 9;
     }
     configure(config) {
         config = config.setDefaults(EmailSettingsController._defaultConfig);
@@ -33,6 +34,9 @@ class EmailSettingsController {
         this._verifyOnUpdate = config.getAsBooleanWithDefault('options.verify_on_update', this._verifyOnUpdate);
         this._expireTimeout = config.getAsIntegerWithDefault('options.verify_expire_timeout', this._expireTimeout);
         this._magicCode = config.getAsStringWithDefault('options.magic_code', this._magicCode);
+        this._code_length = config.getAsIntegerWithDefault('options.code_length', this._code_length);
+        this._code_length = this._code_length <= 9 ? this._code_length : 9;
+        this._code_length = this._code_length >= 3 ? this._code_length : 3;
         this._config = config;
     }
     setReferences(references) {
@@ -82,7 +86,7 @@ class EmailSettingsController {
                     || (oldSettings.email != newSettings.email && this._verifyOnUpdate);
                 if (verify) {
                     newSettings.verified = false;
-                    newSettings.ver_code = pip_services3_commons_node_6.IdGenerator.nextShort();
+                    newSettings.ver_code = pip_services3_commons_node_6.IdGenerator.nextShort().substr(0, this._code_length);
                     newSettings.ver_expire_time = new Date(new Date().getTime() + this._expireTimeout * 60000);
                 }
                 callback();
@@ -325,7 +329,7 @@ class EmailSettingsController {
             // Check if verification is needed
             (callback) => {
                 settings.verified = false;
-                settings.ver_code = pip_services3_commons_node_6.IdGenerator.nextShort();
+                settings.ver_code = pip_services3_commons_node_6.IdGenerator.nextShort().substr(0, this._code_length);
                 settings.ver_expire_time = new Date(new Date().getTime() + this._expireTimeout * 60000);
                 callback();
             },
@@ -406,5 +410,6 @@ class EmailSettingsController {
 }
 exports.EmailSettingsController = EmailSettingsController;
 EmailSettingsController._emailRegex = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-EmailSettingsController._defaultConfig = pip_services3_commons_node_1.ConfigParams.fromTuples('dependencies.persistence', 'pip-services-emailsettings:persistence:*:*:1.0', 'dependencies.activities', 'pip-services-activities:client:*:*:1.0', 'dependencies.msgtemplates', 'pip-services-msgtemplates:client:*:*:1.0', 'dependencies.emaildelivery', 'pip-services-email:client:*:*:1.0', 'message_templates.verify_email.subject', 'Verify email', 'message_templates.verify_email.text', 'Verification code for {{email}} is {{ code }}.', 'options.magic_code', null, 'options.signature_length', 100, 'options.verify_on_create', true, 'options.verify_on_update', true);
+EmailSettingsController._defaultConfig = pip_services3_commons_node_1.ConfigParams.fromTuples('dependencies.persistence', 'pip-services-emailsettings:persistence:*:*:1.0', 'dependencies.activities', 'pip-services-activities:client:*:*:1.0', 'dependencies.msgtemplates', 'pip-services-msgtemplates:client:*:*:1.0', 'dependencies.emaildelivery', 'pip-services-email:client:*:*:1.0', 'message_templates.verify_email.subject', 'Verify email', 'message_templates.verify_email.text', 'Verification code for {{email}} is {{ code }}.', 'options.magic_code', null, 'options.signature_length', 100, 'options.verify_on_create', true, 'options.verify_on_update', true, 'options.code_length', 9 // verification code length (3-9, default 9)
+);
 //# sourceMappingURL=EmailSettingsController.js.map

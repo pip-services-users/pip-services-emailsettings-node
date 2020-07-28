@@ -21,6 +21,7 @@ export declare class EmailSettingsController implements IConfigurable, IReferenc
     private _emailClient;
     private _persistence;
     private _commandSet;
+    private _code_length;
     configure(config: ConfigParams): void;
     setReferences(references: IReferences): void;
     getCommandSet(): CommandSet;

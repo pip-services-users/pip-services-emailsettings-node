@@ -13,7 +13,7 @@ import { EmailSettingsV1 } from '../../src/data/version1/EmailSettingsV1';
 import { EmailSettingsMemoryPersistence } from '../../src/persistence/EmailSettingsMemoryPersistence';
 import { EmailSettingsController } from '../../src/logic/EmailSettingsController';
 
-let SETTINGS = <EmailSettingsV1> {
+let SETTINGS = <EmailSettingsV1>{
     id: '1',
     name: 'User 1',
     email: 'user1@conceptual.vision',
@@ -21,7 +21,7 @@ let SETTINGS = <EmailSettingsV1> {
     verified: false
 };
 
-suite('EmailSettingsController', ()=> {
+suite('EmailSettingsController', () => {
     let persistence: EmailSettingsMemoryPersistence;
     let controller: EmailSettingsController;
 
@@ -38,19 +38,19 @@ suite('EmailSettingsController', ()=> {
         );
         controller.setReferences(references);
     });
-    
+
     test('CRUD Operations', (done) => {
         let settings1: EmailSettingsV1;
 
         async.series([
-        // Create email settings
+            // Create email settings
             (callback) => {
                 controller.setSettings(
-                    null, 
+                    null,
                     SETTINGS,
                     (err, settings) => {
                         assert.isNull(err);
-                        
+
                         assert.isObject(settings);
                         assert.equal(settings.id, SETTINGS.id);
                         assert.equal(settings.email, SETTINGS.email);
@@ -62,7 +62,7 @@ suite('EmailSettingsController', ()=> {
                     }
                 );
             },
-        // Update the settings
+            // Update the settings
             (callback) => {
                 settings1.subscriptions.engagement = true;
 
@@ -71,7 +71,7 @@ suite('EmailSettingsController', ()=> {
                     settings1,
                     (err, settings) => {
                         assert.isNull(err);
-                        
+
                         assert.isObject(settings);
                         assert.equal(settings.id, settings1.id)
                         assert.isTrue(settings.subscriptions.engagement);
@@ -80,11 +80,11 @@ suite('EmailSettingsController', ()=> {
                     }
                 );
             },
-        // Get settings
+            // Get settings
             (callback) => {
                 controller.getSettingsByIds(
                     null,
-                    [ settings1.id ],
+                    [settings1.id],
                     (err, settings) => {
                         assert.isNull(err);
 
@@ -94,7 +94,7 @@ suite('EmailSettingsController', ()=> {
                     }
                 );
             },
-        // Delete settings
+            // Delete settings
             (callback) => {
                 controller.deleteSettingsById(
                     null,
@@ -106,7 +106,7 @@ suite('EmailSettingsController', ()=> {
                     }
                 );
             },
-        // Try to get deleted settings
+            // Try to get deleted settings
             (callback) => {
                 controller.getSettingsById(
                     null,
@@ -127,7 +127,7 @@ suite('EmailSettingsController', ()=> {
         let settings1: EmailSettingsV1;
 
         async.series([
-        // Create new settings
+            // Create new settings
             (callback) => {
                 settings1 = _.clone(SETTINGS);
                 settings1.ver_code = '123';
@@ -139,7 +139,7 @@ suite('EmailSettingsController', ()=> {
                     settings1,
                     (err, settings) => {
                         assert.isNull(err);
-                        
+
                         assert.isObject(settings);
                         settings1 = settings;
 
@@ -150,7 +150,7 @@ suite('EmailSettingsController', ()=> {
                     }
                 );
             },
-        // Verify email
+            // Verify email
             (callback) => {
                 controller.verifyEmail(
                     null,
@@ -158,19 +158,19 @@ suite('EmailSettingsController', ()=> {
                     settings1.ver_code,
                     (err) => {
                         assert.isNull(err);
-                        
+
                         callback();
                     }
                 );
             },
-        // Check settings
+            // Check settings
             (callback) => {
                 persistence.getOneById(
                     null,
                     settings1.id,
                     (err, settings) => {
                         assert.isNull(err);
-                        
+
                         assert.isObject(settings);
                         settings1 = settings;
 
@@ -184,18 +184,18 @@ suite('EmailSettingsController', ()=> {
         ], done);
     });
 
-    test('Resend Verification Email', (done) => {
+    test('Change verification code length', (done) => {
         let settings1: EmailSettingsV1;
-
+        controller.configure(ConfigParams.fromTuples("options.code_length", "6"));
         async.series([
-        // Create new settings
+            // Create new settings
             (callback) => {
                 persistence.set(
                     null,
                     SETTINGS,
                     (err, settings) => {
                         assert.isNull(err);
-                        
+
                         assert.isObject(settings);
                         settings1 = settings;
 
@@ -206,31 +206,89 @@ suite('EmailSettingsController', ()=> {
                     }
                 );
             },
-        // Verify email
+            // Verify email
             (callback) => {
                 controller.resendVerification(
                     null,
                     settings1.id,
                     (err) => {
                         assert.isNull(err);
-                        
+
                         callback();
                     }
                 );
             },
-        // Check settings
+            // Check settings
             (callback) => {
                 persistence.getOneById(
                     null,
                     settings1.id,
                     (err, settings) => {
                         assert.isNull(err);
-                        
+
                         assert.isObject(settings);
                         settings1 = settings;
 
                         assert.isFalse(settings.verified);
                         assert.isNotNull(settings.ver_code);
+                        assert.equal(settings.ver_code.length, 6);
+
+                        callback();
+                    }
+                );
+            }
+        ], done);
+
+    });
+
+    test('Resend Verification Email', (done) => {
+        let settings1: EmailSettingsV1;
+
+        async.series([
+            // Create new settings
+            (callback) => {
+                persistence.set(
+                    null,
+                    SETTINGS,
+                    (err, settings) => {
+                        assert.isNull(err);
+
+                        assert.isObject(settings);
+                        settings1 = settings;
+
+                        assert.isFalse(settings.verified);
+                        assert.isUndefined(settings.ver_code);
+
+                        callback();
+                    }
+                );
+            },
+            // Verify email
+            (callback) => {
+                controller.resendVerification(
+                    null,
+                    settings1.id,
+                    (err) => {
+                        assert.isNull(err);
+
+                        callback();
+                    }
+                );
+            },
+            // Check settings
+            (callback) => {
+                persistence.getOneById(
+                    null,
+                    settings1.id,
+                    (err, settings) => {
+                        assert.isNull(err);
+
+                        assert.isObject(settings);
+                        settings1 = settings;
+
+                        assert.isFalse(settings.verified);
+                        assert.isNotNull(settings.ver_code);
+                        assert.equal(settings.ver_code.length, 9);
 
                         callback();
                     }
@@ -238,5 +296,5 @@ suite('EmailSettingsController', ()=> {
             }
         ], done);
     });
-    
+
 });
